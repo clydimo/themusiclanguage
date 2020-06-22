@@ -143,6 +143,7 @@ window.onload = function () {
 			//console.log(state + ", " + progress);
 		}
 	});
+	MIDI.noteOn(0,1,1,0);
 };
 
 function playmusic() {
