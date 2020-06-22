@@ -70,7 +70,7 @@ function reset() {
 	document.getElementById("guessdiv").setAttribute("hidden",true);
 	document.getElementById("replay").setAttribute("hidden",true);
 	document.getElementById("reveal").setAttribute("hidden",true);
-	document.getElementById("manualinput").value = "";
+	//document.getElementById("manualinput").value = "";
 	document.getElementById("guess").value = "";
 }
 
@@ -161,7 +161,7 @@ function playmusic() {
 		}
 		else {
 			let noteSet = translate(character);		
-			console.log(noteSet[0] + " / " + noteSet[1]);
+			//console.log(noteSet[0] + " / " + noteSet[1]);
 			addNote(bpm,noteSet[1][0],i+1,1,1);
 			addNote(bpm,noteSet[1][1],i+1,2,2);
 			
