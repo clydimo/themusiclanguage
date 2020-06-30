@@ -307,7 +307,7 @@ function translate(character) {
 			break;
 		case "x":
 			chord = fourChord;
-			melody = [majorScale[7],majorScale[8]];
+			melody = [majorScale[2],majorScale[1]];
 			break;
 		case "g":
 			chord = fourChord;
@@ -327,7 +327,7 @@ function translate(character) {
 			break;
 		case "z":
 			chord = fourChord;
-			melody = [majorScale[7],majorScale[6]];
+			melody = [majorScale[1],majorScale[0]];
 			break;
 		case " ":
 			chord = fiveChord;
