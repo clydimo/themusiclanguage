@@ -25,6 +25,9 @@ let oneChord = ["C3","E3","G3"];
 let fourChord = ["F3","A3","C4"];
 let fiveChord = ["G3","B3","D4"];
 
+//activateSharedInput();
+checkForKey();
+
 function run() {
 	reset();
 
@@ -36,6 +39,11 @@ function run() {
 		unrefinedPhrase = inputPhrase;
 		document.getElementById("guessdiv").removeAttribute("hidden");
 	}
+	else if (document.getElementById("sharedInputType").checked) {
+		let params = new URLSearchParams(document.location.search.substring(1));		
+		let sharedPhrase = params.get("key");
+		inputPhrase = urlTranslate(sharedPhrase);
+	}
 	else {
 		inputPhrase = document.getElementById("manualinput").value;
 		unrefinedPhrase = inputPhrase;
@@ -46,6 +54,7 @@ function run() {
 	}
 
 	document.getElementById("replay").removeAttribute("hidden");
+	document.getElementById("share").removeAttribute("hidden");
 
 	let submitButton = document.getElementById("submitbutton");
 
@@ -55,10 +64,42 @@ function run() {
 
 	wordappear(unrefinedPhrase);
 	//wordentry(inputPhrase);
-	//console.log(inputPhrase);
+	console.log(inputPhrase);
 
 	playmusic();
+}
 
+function checkForKey() {
+	let params = new URLSearchParams(document.location.search.substring(1));
+	if (params.get("key") != null) {
+		activateSharedInput();	
+	}
+}
+
+function activateSharedInput() {
+	document.getElementById("sharedInputDiv").removeAttribute("hidden");
+	document.getElementById("sharedInputType").setAttribute("checked",true);
+}
+
+function shareClick() {
+	let basicLink = "https://themusiclanguage.com/?key="
+	let linkKey = urlTranslate(inputPhrase);
+	let linkDiv = document.createElement("div");
+	basicLink.concat()
+	linkDiv.innerHTML = basicLink.concat(linkKey);
+	let shareLink = document.getElementById("shareLink");
+	shareLink.appendChild(linkDiv);
+	revealShare();
+}
+
+function urlTranslate(phrase) {
+	let urlFullCode = "";
+	for (i = 0; i < phrase.length; i++) {
+		character = phrase[i];
+		let urlLettercode = urlCharacterTranslate(character);
+		urlFullCode = urlFullCode.concat(urlLettercode);
+	}
+	return urlFullCode;
 }
 
 function reset() {
@@ -70,6 +111,7 @@ function reset() {
 	document.getElementById("guessdiv").setAttribute("hidden",true);
 	document.getElementById("replay").setAttribute("hidden",true);
 	document.getElementById("reveal").setAttribute("hidden",true);
+	document.getElementById("share").setAttribute("hidden",true);
 	//document.getElementById("manualinput").value = "";
 	document.getElementById("guess").value = "";
 }
@@ -82,6 +124,7 @@ function disableAndEnable() {
 	document.getElementById("bpmText").setAttribute("disabled",true);
 	document.getElementById("submitbutton").setAttribute("disabled",true);
 	document.getElementById("replay").setAttribute("disabled",true);
+	//document.getElementById("share").setAttribute("disabled",true);
 
 	let time = (((inputPhrase.length + 2)*4)/bpm)*60000
 	setTimeout(function() { enableEverything() }, time);
@@ -95,6 +138,7 @@ function enableEverything() {
 	document.getElementById("bpmText").removeAttribute("disabled");
 	document.getElementById("submitbutton").removeAttribute("disabled");
 	document.getElementById("replay").removeAttribute("disabled");	
+	document.getElementById("share").removeAttribute("disabled");	
 }
 
 function guessMade() {
@@ -114,6 +158,11 @@ function guessMade() {
 function reveal() {
 	document.getElementById("reveal").setAttribute("hidden",true);
 	document.getElementById("content").removeAttribute("hidden");
+}
+
+function revealShare() {
+	document.getElementById("share").setAttribute("hidden",true);
+	document.getElementById("shareText").removeAttribute("hidden");
 }
 
 function replay() {
@@ -338,6 +387,99 @@ function translate(character) {
 	}
 	let noteSet = [chord,melody];
 	return noteSet;
+}
+
+function urlCharacterTranslate(character) {
+	let urlCode = null;
+	switch (character){
+		case "c":
+			urlCode = "h";
+			break;
+		case "d":
+			urlCode = "t";
+			break;
+		case "v":
+			urlCode = "w";
+			break;
+		case "f":
+			urlCode = "r";
+			break;
+		case "m":
+			urlCode = "n";
+			break;
+		case "l":
+			urlCode = "p";
+			break;
+		case "b":
+			urlCode = "s";
+			break;
+		case "h":
+			urlCode = "c";
+			break;
+		case "t":
+			urlCode = "d";
+			break;
+		case "w":
+			urlCode = "v";
+			break;
+		case "r":
+			urlCode = "f";
+			break;
+		case "n":
+			urlCode = "m";
+			break;
+		case "p":
+			urlCode = "l";
+			break;
+		case "s":
+			urlCode = "b";
+			break;
+		case "a":
+			urlCode = "z";
+			break;
+		case "e":
+			urlCode = "x";
+			break;
+		case "i":
+			urlCode = "g";
+			break;
+		case "o":
+			urlCode = "j";
+			break;
+		case "u":
+			urlCode = "q";
+			break;
+		case "y":
+			urlCode = "k";
+			break;
+		case "x":
+			urlCode = "e";
+			break;
+		case "g":
+			urlCode = "i";
+			break;
+		case "j":
+			urlCode = "o";
+			break;
+		case "q":
+			urlCode = "u";
+			break;
+		case "k":
+			urlCode = "y";
+			break;
+		case "z":
+			urlCode = "a";
+			break;
+		case " ":
+			urlCode = "_";
+			break;
+		case "_":
+			urlCode = " ";
+			break;
+		default:
+			urlCode = "ERROR"
+	}
+	return urlCode;
 }
 
 /*
