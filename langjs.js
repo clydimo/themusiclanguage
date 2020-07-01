@@ -85,10 +85,10 @@ function shareClick() {
 	let basicLink = "https://themusiclanguage.com/?key="
 	let linkKey = urlTranslate(inputPhrase);
 	let linkDiv = document.createElement("div");
-	basicLink.concat()
-	linkDiv.innerHTML = basicLink.concat(linkKey);
+	//basicLink.concat()
 	let shareLink = document.getElementById("shareLink");
-	shareLink.appendChild(linkDiv);
+	shareLink.innerHTML = basicLink.concat(linkKey);
+	//shareLink.appendChild(linkDiv);
 	revealShare();
 }
 
@@ -112,6 +112,8 @@ function reset() {
 	document.getElementById("replay").setAttribute("hidden",true);
 	document.getElementById("reveal").setAttribute("hidden",true);
 	document.getElementById("share").setAttribute("hidden",true);
+	document.getElementById("shareText").setAttribute("hidden",true);
+	document.getElementById("shareLink").innerHTML = "";
 	//document.getElementById("manualinput").value = "";
 	document.getElementById("guess").value = "";
 }
