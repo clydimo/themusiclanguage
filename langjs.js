@@ -43,6 +43,8 @@ function run() {
 		let params = new URLSearchParams(document.location.search.substring(1));		
 		let sharedPhrase = params.get("key");
 		inputPhrase = urlTranslate(sharedPhrase);
+		unrefinedPhrase = inputPhrase;
+		document.getElementById("guessdiv").removeAttribute("hidden");
 	}
 	else {
 		inputPhrase = document.getElementById("manualinput").value;
@@ -269,7 +271,7 @@ function addChordFake(bpm,noteSet,measure,beat,length) {
 
 function b2s(bpm, beats) {
 	let secs = (60 * beats) / bpm;
-	return secs;
+	return secs+1;
 }
 
 function translate(character) {
